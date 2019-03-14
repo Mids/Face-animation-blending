@@ -27,11 +27,18 @@ public class FaceModel : MonoBehaviour
 	private Mesh _tongueMesh;
 	private Mesh _faceMesh;
 
-	public GameObject Face;
+	public GameObject[] Faces;
 
 	void Start()
 	{
-		InitializeMesh(Face);
+		if (Faces.Length == 0 || Faces[0] == null)
+		{
+			print("There is no registered face in " + name + ".");
+			Destroy(gameObject);
+			return;
+		}
+
+		InitializeMesh(Faces[0]);
 		GetModelMeshes();
 	}
 
@@ -71,6 +78,11 @@ public class FaceModel : MonoBehaviour
 
 	private void InitializeMesh(GameObject go)
 	{
+		if (go == null)
+		{
+			print("Tried to initialize null object");
+			return;
+		}
 		if (transform.childCount > 0)
 			Destroy(transform.GetChild(0).gameObject);
 		ReimportMesh(go);
