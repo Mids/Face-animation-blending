@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Runtime.InteropServices;
 using UnityEngine.UI;
 
 public class InputListner : MonoBehaviour
@@ -17,12 +16,9 @@ public class InputListner : MonoBehaviour
 
 	private void InputFieldListener(string input)
 	{
-		if (Add1(1) == 2)
-		{
-			_input.text = "DLL INJECTED!";
-		}
+//		if (Add1(1) == 2)
+//		{
+//			_input.text = "DLL INJECTED!";
+//		}
 	}
-
-	[DllImport("testdll")]
-	public static extern int Add1(int input);
 }
