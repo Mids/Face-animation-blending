@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System.Runtime.InteropServices;
+using UnityEditor;
+using UnityEditor.AI;
+using Object = UnityEngine.Object;
 
 
 public class FaceModel : MonoBehaviour
@@ -24,11 +27,13 @@ public class FaceModel : MonoBehaviour
 	private Mesh _tongueMesh;
 	private Mesh _faceMesh;
 
+	public GameObject Face;
+
 	void Start()
 	{
+		InitializeMesh(Face);
 		GetModelMeshes();
 	}
-
 
 	// Update is called once per frame
 	void Update()
@@ -62,6 +67,27 @@ public class FaceModel : MonoBehaviour
 		VertexManipulate(vertices, normals, vertices.Length, Time.time);
 
 		mesh.vertices = vertices;
+	}
+
+	private void InitializeMesh(GameObject go)
+	{
+		if (transform.childCount > 0)
+			Destroy(transform.GetChild(0).gameObject);
+		ReimportMesh(go);
+		var faceObject = Instantiate(go);
+		faceObject.transform.parent = transform;
+		faceObject.transform.localPosition = Vector3.zero;
+		faceObject.transform.localRotation = Quaternion.identity;
+		faceObject.transform.localScale = Vector3.one;
+		faceObject.name = FaceModelName;
+	}
+
+	//If you change mesh vertices, it lasts until we reimport it manually
+	private void ReimportMesh(GameObject go)
+	{
+		var path = AssetDatabase.GetAssetPath(go);
+		AssetDatabase.ImportAsset(path);
+		Debug.Log(" Scene Object was succesfully reimported at: " + "<color=#e0771a><i>" + "Assets" + path + "</i></color>");
 	}
 
 	[DllImport("testdll")]
