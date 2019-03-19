@@ -35,3 +35,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Junks/
+data-*/
+Assets/Plugins/voicetext_eng.dll*
