@@ -37,3 +37,4 @@ sysinfo.txt
 Junks/
 data-*/
 Assets/Plugins/voicetext_eng.dll*
+*.pcm
