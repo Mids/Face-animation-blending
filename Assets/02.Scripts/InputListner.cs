@@ -21,4 +21,9 @@ public class InputListner : MonoBehaviour
 //			_input.text = "DLL INJECTED!";
 //		}
 	}
+
+	public string GetText()
+	{
+		return _input.text;
+	}
 }
