@@ -9,8 +9,9 @@ using UnityEngine.UI;
 
 public class VoiceTextWrapper : MonoBehaviour
 {
-	// Start is called before the first frame update
-	void Start()
+	public TextAsset textFile;
+
+    void Start()
 	{
 		if (LOADTTS_ENG() != 10)
 		{
@@ -23,7 +24,7 @@ public class VoiceTextWrapper : MonoBehaviour
 
 		// TODO: This code is running even if load is failed.
 		
-		byte[] testByteArray = StringToByteArray(texttest());
+		byte[] testByteArray = StringToByteArray(textFile.text);
 		byte[] testFileName = StringToByteArray("byte.pcm");
 
 		if (TextToPcmFile_ENG(testByteArray, testFileName) != 1)
@@ -44,13 +45,6 @@ public class VoiceTextWrapper : MonoBehaviour
 		result[s.Length] = 0;
 
 		return result;
-	}
-
-	string texttest()
-	{
-		var inputListener = GameObject.Find("InputField").GetComponent<InputListner>();
-		var text = inputListener.GetText();
-		return text;
 	}
 
 	[DllImport("voicetext_eng")]
