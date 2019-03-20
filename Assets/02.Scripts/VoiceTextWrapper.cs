@@ -31,6 +31,8 @@ public class VoiceTextWrapper : MonoBehaviour
 		{
 			print("TTS File Out ERROR!");
 		}
+
+		playWav("file:///C:/Users/jiny1/Documents/Unity3D/Face anim 32bit/byte.wav");
 	}
 
 	private byte[] StringToByteArray(string s)
@@ -46,6 +48,22 @@ public class VoiceTextWrapper : MonoBehaviour
 
 		return result;
 	}
+
+	private AudioSource audio;
+	void playWav(string url)
+	{
+		WWW audioLoader = new WWW(url);
+		while (!audioLoader.isDone)
+		{
+			print("Loading Wav File");
+		}
+
+		print("Success!");
+
+		audio = GetComponent<AudioSource>();
+		audio.clip = audioLoader.GetAudioClip();
+		audio.Play();
+    }
 
 	[DllImport("voicetext_eng")]
 	static extern short LOADTTS_ENG();
