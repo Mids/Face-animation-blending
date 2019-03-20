@@ -38,3 +38,5 @@ Junks/
 data-*/
 Assets/Plugins/voicetext_eng.dll*
 *.pcm
+*.wav
+length-sync.txt

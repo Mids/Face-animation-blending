@@ -25,9 +25,9 @@ public class VoiceTextWrapper : MonoBehaviour
 		// TODO: This code is running even if load is failed.
 		
 		byte[] testByteArray = StringToByteArray(textFile.text);
-		byte[] testFileName = StringToByteArray("byte.pcm");
+		byte[] testFileName = StringToByteArray("byte.wav");
 
-		if (TextToPcmFile_ENG(testByteArray, testFileName) != 1)
+		if (TextToWaveFile_ENG(testByteArray, testFileName) != 1)
 		{
 			print("TTS File Out ERROR!");
 		}
@@ -51,5 +51,5 @@ public class VoiceTextWrapper : MonoBehaviour
 	static extern short LOADTTS_ENG();
 
 	[DllImport("voicetext_eng")]
-	static extern short TextToPcmFile_ENG([In, Out] byte[] tts_text, byte[] filename);
+	static extern short TextToWaveFile_ENG([In, Out] byte[] tts_text, byte[] filename);
 }
