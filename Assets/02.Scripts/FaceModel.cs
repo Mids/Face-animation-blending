@@ -42,6 +42,10 @@ public class FaceModel : MonoBehaviour
 
 		InitializeMesh(Faces[0]);
 		GetModelMeshes();
+
+		// TODO: This is test code below.
+		LoadFaceAni();
+		UpdateLipSync();
 	}
 
 	// Update is called once per frame
@@ -115,8 +119,14 @@ public class FaceModel : MonoBehaviour
 	[DllImport("testdll")]
 	private static extern void RegisterDebugCallback(DebugCallback callback);
 
+	[DllImport("testdll")]
+	private static extern int LoadFaceAni();
 
-	private static void DebugMethod(string message)
+	[DllImport("testdll")]
+	private static extern int UpdateLipSync();
+
+
+    private static void DebugMethod(string message)
 	{
 		Debug.Log("UnmanagedCodeTitle: " + message);
 	}

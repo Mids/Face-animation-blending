@@ -55,7 +55,7 @@ public class VoiceTextWrapper : MonoBehaviour
 		WWW audioLoader = new WWW(url);
 		while (!audioLoader.isDone)
 		{
-			print("Loading Wav File");
+//			print("Loading Wav File");
 		}
 
 		print("Success!");
@@ -65,9 +65,29 @@ public class VoiceTextWrapper : MonoBehaviour
 		audio.Play();
     }
 
-	[DllImport("voicetext_eng")]
-	static extern short LOADTTS_ENG();
+	[DllImport("kernel32", SetLastError = true)]
+    private static extern bool FreeLibrary(IntPtr hModule);
+    private void OnApplicationQuit()
+    {
+	    UNLOADTTS_ENG();
 
-	[DllImport("voicetext_eng")]
+	    foreach (System.Diagnostics.ProcessModule mod in System.Diagnostics.Process.GetCurrentProcess().Modules)
+	    {
+		    if (mod.FileName.Contains("voicetext") ||
+		        mod.FileName.Contains("testdll"))
+		    {
+				Debug.Log("Free Library : " + mod.FileName);
+			    FreeLibrary(mod.BaseAddress);
+		    }
+        }
+    }
+
+    [DllImport("voicetext_eng")]
+    static extern short LOADTTS_ENG();
+
+    [DllImport("voicetext_eng")]
+    static extern short UNLOADTTS_ENG();
+
+    [DllImport("voicetext_eng")]
 	static extern short TextToWaveFile_ENG([In, Out] byte[] tts_text, byte[] filename);
 }
