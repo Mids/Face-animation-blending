@@ -45,7 +45,15 @@ public class FaceModel : MonoBehaviour
 
 		// TODO: This is test code below.
 		LoadFaceAni();
-		UpdateLipSync();
+		unsafe
+		{
+			SHxFaceObj aa = GetFace();
+
+			for (int i = 0; i < aa.m_numVtx; i++)
+			{
+				Debug.Log(aa.m_pVtxList[i].x);
+			}
+        }
 	}
 
 	// Update is called once per frame
@@ -124,6 +132,9 @@ public class FaceModel : MonoBehaviour
 
 	[DllImport("testdll")]
 	private static extern int UpdateLipSync();
+
+	[DllImport("testdll", CallingConvention = CallingConvention.Cdecl)]
+	private static extern unsafe SHxFaceObj GetFace();
 
 
     private static void DebugMethod(string message)
