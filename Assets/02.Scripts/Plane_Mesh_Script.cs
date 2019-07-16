@@ -4,37 +4,45 @@ using UnityEngine;
 
 public class Plane_Mesh_Script : MonoBehaviour
 {
-	public Vector3[] Vertex = new Vector3[]
-	{
-		new Vector3(0, 0, 0), new Vector3(1, 0, 0), new Vector3(0, 1, 0), new Vector3(1, 1, 0)
-	};
+	// Put wrapper in the inspector
+	public testdllWrapper DllWrapper;
 
 	public Vector2[] UV_MaterialDisplay = new Vector2[]
 	{
 		new Vector2(0, 0), new Vector2(1, 0), new Vector2(0, 1), new Vector2(1, 1) // 4 UV with all directions! (Plane has 4 uvMaps)
 	};
 
-	public int[] Triangles = new int[6]; // 2 Triangle combinations (2*3=6 vertices/vertexes)
-
 	public Material material;
 
 	private Vector3[] _vertexList;
+	private int[] _faceList;
 	private Vector2[] _uvMaterialDisplay;
 
-	void SetVertex()
+	public void SetMeshFromFaceObj(SHxFaceObj obj)
 	{
+		unsafe
+		{
+			// Get Vertices
+			_vertexList = new Vector3[obj.m_numVtx];
+			for (int i = 0; i < obj.m_numVtx; i++)
+			{
+				_vertexList[i] = new Vector3(obj.m_pVtxList[i].x, obj.m_pVtxList[i].y, obj.m_pVtxList[i].z);
+			}
+
+			// Get Facet
+			_faceList = new int[obj.m_numVtxFace * 3];
+			for (int i = 0; i < obj.m_numVtxFace; i++)
+			{
+				_faceList[3 * i] = obj.m_pVtxFaceList[i].v1;
+				_faceList[3 * i + 1] = obj.m_pVtxFaceList[i].v2;
+				_faceList[3 * i + 2] = obj.m_pVtxFaceList[i].v3;
+			}
+		}
 	}
 
-	void Start()
+	public void LoadMesh()
 	{
-		Triangles[0] = 0;
-		Triangles[1] = 3;
-		Triangles[2] = 1;
-
-		Triangles[3] = 0;
-		Triangles[4] = 2;
-		Triangles[5] = 3;
-
+		SetMeshFromFaceObj(DllWrapper.GetFaceObj());
 		Mesh mesh = new Mesh();
 		transform.GetComponent<MeshFilter>();
 
@@ -48,13 +56,21 @@ public class Plane_Mesh_Script : MonoBehaviour
 
 		mesh.name = "MyOwnObject";
 
-		mesh.vertices = Vertex;
-		mesh.triangles = Triangles;
-		mesh.uv = UV_MaterialDisplay;
+		mesh.vertices = _vertexList;
+		mesh.triangles = _faceList;
+//		mesh.uv = UV_MaterialDisplay;
 
 		mesh.RecalculateNormals();
-//		mesh.Optimize(); // This is doing nothing
-//		transform.gameObject.renderer.material = material; //If you want a material.. you have it :)
 		GetComponent<Renderer>().material = material;
+	}
+
+	static int i = 0;
+
+	private void Update()
+	{
+		if (i++ == 10)
+		{
+			LoadMesh();
+		}
 	}
 }
