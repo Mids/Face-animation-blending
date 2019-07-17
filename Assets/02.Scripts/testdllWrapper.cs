@@ -16,6 +16,11 @@ public class testdllWrapper : MonoBehaviour
 		return GetFace();
 	}
 
+	public void Update()
+	{
+		UpdateLipSync();
+	}
+
 	[DllImport("testdll")]
 	private static extern int LoadFaceAni();
 
@@ -23,5 +28,5 @@ public class testdllWrapper : MonoBehaviour
 	private static extern int UpdateLipSync();
 
 	[DllImport("testdll", CallingConvention = CallingConvention.Cdecl)]
-	private static extern unsafe SHxFaceObj GetFace();
+	private static extern SHxFaceObj GetFace();
 }

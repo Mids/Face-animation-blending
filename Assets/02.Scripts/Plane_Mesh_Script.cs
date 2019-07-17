@@ -17,8 +17,11 @@ public class Plane_Mesh_Script : MonoBehaviour
 	private Vector3[] _vertexList;
 	private int[] _faceList;
 	private Vector2[] _uvMaterialDisplay;
+	private Mesh _mesh;
 
-	public void SetMeshFromFaceObj(SHxFaceObj obj)
+	private bool _isFirst = true;
+
+    public void SetMeshFromFaceObj(SHxFaceObj obj)
 	{
 		unsafe
 		{
@@ -26,7 +29,7 @@ public class Plane_Mesh_Script : MonoBehaviour
 			_vertexList = new Vector3[obj.m_numVtx];
 			for (int i = 0; i < obj.m_numVtx; i++)
 			{
-				_vertexList[i] = new Vector3(obj.m_pVtxList[i].x, obj.m_pVtxList[i].y, obj.m_pVtxList[i].z);
+				_vertexList[i] = new Vector3(obj.m_pAniVtxList[i].x, obj.m_pAniVtxList[i].y, obj.m_pAniVtxList[i].z);
 			}
 
 			// Get Facet
@@ -37,13 +40,15 @@ public class Plane_Mesh_Script : MonoBehaviour
 				_faceList[3 * i + 1] = obj.m_pVtxFaceList[i].v2;
 				_faceList[3 * i + 2] = obj.m_pVtxFaceList[i].v3;
 			}
+
+			Debug.Log("m_pVtxList : (" + obj.m_pTexList[200].x + ", " + obj.m_pTexList[200].y + ", " + obj.m_pTexList[200].z + ")");
 		}
 	}
 
 	public void LoadMesh()
 	{
 		SetMeshFromFaceObj(DllWrapper.GetFaceObj());
-		Mesh mesh = new Mesh();
+		_mesh = new Mesh();
 		transform.GetComponent<MeshFilter>();
 
 		if (!transform.GetComponent<MeshFilter>() || !transform.GetComponent<MeshRenderer>()) //If you havent got any meshrenderer or filter
@@ -52,25 +57,48 @@ public class Plane_Mesh_Script : MonoBehaviour
 			transform.gameObject.AddComponent<MeshRenderer>();
 		}
 
-		transform.GetComponent<MeshFilter>().mesh = mesh;
+		transform.GetComponent<MeshFilter>().mesh = _mesh;
 
-		mesh.name = "MyOwnObject";
+		_mesh.name = "MyOwnObject";
 
-		mesh.vertices = _vertexList;
-		mesh.triangles = _faceList;
+		_mesh.vertices = _vertexList;
+		_mesh.triangles = _faceList;
 //		mesh.uv = UV_MaterialDisplay;
 
-		mesh.RecalculateNormals();
+		_mesh.RecalculateNormals();
 		GetComponent<Renderer>().material = material;
 	}
 
-	static int i = 0;
-
-	private void Update()
+	void Update()
 	{
-		if (i++ == 10)
+		// LoadMesh should be called after start() finished.
+		if (_isFirst)
 		{
 			LoadMesh();
+			_isFirst = false;
 		}
+		else
+		{
+			UpdateVertex();
+			_mesh.vertices = _vertexList;
+			_mesh.triangles = _faceList;
+			_mesh.RecalculateNormals();
+        }
+	}
+
+	private void UpdateVertex()
+	{
+		var obj = DllWrapper.GetFaceObj();
+
+		unsafe
+		{
+			// Get Vertices
+			_vertexList = new Vector3[obj.m_numVtx];
+			for (int i = 0; i < obj.m_numVtx; i++)
+			{
+				_vertexList[i] = new Vector3(obj.m_pAniVtxList[i].x, obj.m_pAniVtxList[i].y, obj.m_pAniVtxList[i].z);
+			}
+			Debug.Log("UpdateVertex : (" + obj.m_pTexList[200].x + ", " + obj.m_pTexList[200].y + ", " + obj.m_pTexList[200].z + ")");
+        }
 	}
 }
