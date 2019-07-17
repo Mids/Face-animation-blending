@@ -15,7 +15,7 @@
 	public unsafe SHxVtx** m_pExVtxList;
 	public int m_numEmotion;
 	public int m_numPhoneme;
-	
+
 	public unsafe SHxFace* m_pVtxFaceList;
 	public unsafe SHxFace* m_pTexFaceList;
 }

@@ -11,7 +11,7 @@ public class VoiceTextWrapper : MonoBehaviour
 {
 	public TextAsset textFile;
 
-    void Start()
+	void Start()
 	{
 		if (LOADTTS_ENG() != 10)
 		{
@@ -23,7 +23,7 @@ public class VoiceTextWrapper : MonoBehaviour
 		}
 
 		// TODO: This code is running even if load is failed.
-		
+
 		byte[] testByteArray = StringToByteArray(textFile.text);
 		byte[] testFileName = StringToByteArray("byte.wav");
 
@@ -50,6 +50,7 @@ public class VoiceTextWrapper : MonoBehaviour
 	}
 
 	private AudioSource audio;
+
 	void playWav(string url)
 	{
 		WWW audioLoader = new WWW(url);
@@ -63,31 +64,32 @@ public class VoiceTextWrapper : MonoBehaviour
 		audio = GetComponent<AudioSource>();
 		audio.clip = audioLoader.GetAudioClip();
 		audio.Play();
-    }
+	}
 
 	[DllImport("kernel32", SetLastError = true)]
-    private static extern bool FreeLibrary(IntPtr hModule);
-    private void OnApplicationQuit()
-    {
-	    UNLOADTTS_ENG();
+	private static extern bool FreeLibrary(IntPtr hModule);
 
-	    foreach (System.Diagnostics.ProcessModule mod in System.Diagnostics.Process.GetCurrentProcess().Modules)
-	    {
-		    if (mod.FileName.Contains("voicetext") ||
-		        mod.FileName.Contains("testdll"))
-		    {
+	private void OnApplicationQuit()
+	{
+		UNLOADTTS_ENG();
+
+		foreach (System.Diagnostics.ProcessModule mod in System.Diagnostics.Process.GetCurrentProcess().Modules)
+		{
+			if (mod.FileName.Contains("voicetext") ||
+			    mod.FileName.Contains("testdll"))
+			{
 				Debug.Log("Free Library : " + mod.FileName);
-			    FreeLibrary(mod.BaseAddress);
-		    }
-        }
-    }
+				FreeLibrary(mod.BaseAddress);
+			}
+		}
+	}
 
-    [DllImport("voicetext_eng")]
-    static extern short LOADTTS_ENG();
+	[DllImport("voicetext_eng")]
+	static extern short LOADTTS_ENG();
 
-    [DllImport("voicetext_eng")]
-    static extern short UNLOADTTS_ENG();
+	[DllImport("voicetext_eng")]
+	static extern short UNLOADTTS_ENG();
 
-    [DllImport("voicetext_eng")]
+	[DllImport("voicetext_eng")]
 	static extern short TextToWaveFile_ENG([In, Out] byte[] tts_text, byte[] filename);
 }

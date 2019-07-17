@@ -21,13 +21,12 @@ public class Plane_Mesh_Script : MonoBehaviour
 
 	private bool _isFirst = true;
 
-    public void SetMeshFromFaceObj(SHxFaceObj obj)
-    {
-	    // Get Vertices
-	    UpdateVertex(obj);
-        unsafe
+	public void SetMeshFromFaceObj(SHxFaceObj obj)
+	{
+		// Get Vertices
+		UpdateVertex(obj);
+		unsafe
 		{
-
 			// Get Facet
 			_faceList = new int[obj.m_numVtxFace * 3];
 			for (int i = 0; i < obj.m_numVtxFace; i++)
@@ -79,7 +78,7 @@ public class Plane_Mesh_Script : MonoBehaviour
 			_mesh.vertices = _vertexList;
 			_mesh.triangles = _faceList;
 			_mesh.RecalculateNormals();
-        }
+		}
 	}
 
 	private void UpdateVertex(SHxFaceObj obj)
@@ -92,6 +91,6 @@ public class Plane_Mesh_Script : MonoBehaviour
 			{
 				_vertexList[i] = new Vector3(obj.m_pAniVtxList[i].x, obj.m_pAniVtxList[i].y, obj.m_pAniVtxList[i].z);
 			}
-        }
+		}
 	}
 }

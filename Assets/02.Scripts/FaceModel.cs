@@ -33,7 +33,7 @@ public class FaceModel : MonoBehaviour
 	{
 		RegisterDebugCallback(new DebugCallback(DebugMethod));
 
-        if (Faces.Length == 0 || Faces[0] == null)
+		if (Faces.Length == 0 || Faces[0] == null)
 		{
 			print("There is no registered face in " + name + ".");
 			Destroy(gameObject);
@@ -85,6 +85,7 @@ public class FaceModel : MonoBehaviour
 			print("Tried to initialize null object");
 			return;
 		}
+
 		if (transform.childCount > 0)
 			Destroy(transform.GetChild(0).gameObject);
 		ReimportMesh(go);
@@ -102,7 +103,7 @@ public class FaceModel : MonoBehaviour
 		var path = AssetDatabase.GetAssetPath(go);
 		AssetDatabase.ImportAsset(path);
 		Debug.Log(" Scene Object was succesfully reimported at: " + "<color=#e0771a><i>" + "Assets" + path + "</i></color>");
-    }
+	}
 
 	[DllImport("testdll")]
 	static extern void VertexManipulate([In, Out] Vector3[] vertices, Vector3[] normals, int length, float time);
@@ -116,7 +117,7 @@ public class FaceModel : MonoBehaviour
 	private static extern void RegisterDebugCallback(DebugCallback callback);
 
 
-    private static void DebugMethod(string message)
+	private static void DebugMethod(string message)
 	{
 		Debug.Log("UnmanagedCodeTitle: " + message);
 	}
