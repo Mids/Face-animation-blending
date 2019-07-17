@@ -13,26 +13,26 @@ public class VoiceTextWrapper : MonoBehaviour
 
     void Start()
 	{
-//		if (LOADTTS_ENG() != 10)
-//		{
-//			print("TTS Load ERROR!");
-//		}
-//		else
-//		{
-//			print("TTS Load SUCCESS");
-//		}
-//
-//		// TODO: This code is running even if load is failed.
-//		
-//		byte[] testByteArray = StringToByteArray(textFile.text);
-//		byte[] testFileName = StringToByteArray("byte.wav");
-//
-//		if (TextToWaveFile_ENG(testByteArray, testFileName) != 1)
-//		{
-//			print("TTS File Out ERROR!");
-//		}
-//
-//		playWav("file:///C:/Users/jiny1/Documents/Unity3D/Face anim 32bit/byte.wav");
+		if (LOADTTS_ENG() != 10)
+		{
+			print("TTS Load ERROR!");
+		}
+		else
+		{
+			print("TTS Load SUCCESS");
+		}
+
+		// TODO: This code is running even if load is failed.
+		
+		byte[] testByteArray = StringToByteArray(textFile.text);
+		byte[] testFileName = StringToByteArray("byte.wav");
+
+		if (TextToWaveFile_ENG(testByteArray, testFileName) != 1)
+		{
+			print("TTS File Out ERROR!");
+		}
+
+		playWav("file:///C:/Users/jiny1/Documents/Unity3D/Face anim 32bit/byte.wav");
 	}
 
 	private byte[] StringToByteArray(string s)
