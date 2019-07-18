@@ -35,8 +35,6 @@ public class Plane_Mesh_Script : MonoBehaviour
 				_faceList[3 * i + 1] = obj.m_pVtxFaceList[i].v2;
 				_faceList[3 * i + 2] = obj.m_pVtxFaceList[i].v3;
 			}
-
-			Debug.Log("m_pVtxList : (" + obj.m_pTexList[200].x + ", " + obj.m_pTexList[200].y + ", " + obj.m_pTexList[200].z + ")");
 		}
 	}
 
