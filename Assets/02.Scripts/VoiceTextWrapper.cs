@@ -10,6 +10,12 @@ using UnityEngine.UI;
 public class VoiceTextWrapper : MonoBehaviour
 {
 	public TextAsset textFile;
+	private bool _isLoaded = false;
+	private bool _hasSomethingToPlay = false;
+	private bool _isPlaying = false;
+
+	private AudioSource _audio;
+	WWW audioLoader;
 
 	void Start()
 	{
@@ -20,19 +26,41 @@ public class VoiceTextWrapper : MonoBehaviour
 		else
 		{
 			print("TTS Load SUCCESS");
+			_isLoaded = true;
+			_hasSomethingToPlay = true;
 		}
+	}
 
-		// TODO: This code is running even if load is failed.
+	void Update()
+	{
+		if (!_isLoaded)
+			return;
 
-		byte[] testByteArray = StringToByteArray(textFile.text);
-		byte[] testFileName = StringToByteArray("byte.wav");
-
-		if (TextToWaveFile_ENG(testByteArray, testFileName) != 1)
+		if (_hasSomethingToPlay)
 		{
-			print("TTS File Out ERROR!");
+			byte[] testByteArray = StringToByteArray(textFile.text);
+			byte[] testFileName = StringToByteArray(Constants.WaveFileName);
+
+			if (TextToWaveFile_ENG(testByteArray, testFileName) != 1)
+			{
+				print("TTS File Out ERROR!");
+			}
+			else
+			{
+				print("TTS File Out SUCCESS!");
+                audioLoader = new WWW(Constants.WaveFilePath + Constants.WaveFileName);
+				_hasSomethingToPlay = false;
+			}
 		}
 
-		playWav("file:///C:/Users/jiny1/Documents/Unity3D/Face anim 32bit/byte.wav");
+		// Start to play audio if it is not playing
+		if (!_isPlaying && audioLoader.isDone)
+		{
+			_audio = GetComponent<AudioSource>();
+			_audio.clip = audioLoader.GetAudioClip();
+			_audio.Play();
+			_isPlaying = true;
+		}
 	}
 
 	private byte[] StringToByteArray(string s)
@@ -47,23 +75,6 @@ public class VoiceTextWrapper : MonoBehaviour
 		result[s.Length] = 0;
 
 		return result;
-	}
-
-	private AudioSource audio;
-
-	void playWav(string url)
-	{
-		WWW audioLoader = new WWW(url);
-		while (!audioLoader.isDone)
-		{
-//			print("Loading Wav File");
-		}
-
-		print("Success!");
-
-		audio = GetComponent<AudioSource>();
-		audio.clip = audioLoader.GetAudioClip();
-		audio.Play();
 	}
 
 	[DllImport("kernel32", SetLastError = true)]
