@@ -1109,7 +1109,7 @@ GameObject:
   - component: {fileID: 1552873913}
   - component: {fileID: 1552873914}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: DLLTestFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1168,7 +1168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed1f287288087343a61667dfef8089d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFile: {fileID: 4900000, guid: 145217e03dd964b41b0b144b115508d7, type: 3}
+  TextFile: {fileID: 4900000, guid: 379be874ddccd7040a474c09aad1bd78, type: 3}
+  InputText: {fileID: 631703302}
+  IsFromTextFile: 0
 --- !u!82 &1552873914
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1291,7 +1293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed1f287288087343a61667dfef8089d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFile: {fileID: 4900000, guid: 379be874ddccd7040a474c09aad1bd78, type: 3}
+  TextFile: {fileID: 0}
+  InputText: {fileID: 0}
+  IsFromTextFile: 0
 --- !u!82 &1807041558
 AudioSource:
   m_ObjectHideFlags: 0

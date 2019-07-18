@@ -9,7 +9,10 @@ using UnityEngine.UI;
 
 public class VoiceTextWrapper : MonoBehaviour
 {
-	public TextAsset textFile;
+	public TextAsset TextFile;
+	public InputField InputText;
+	public bool IsFromTextFile = false;
+	private string _textToRead;
 	private bool _isLoaded = false;
 	private bool _hasSomethingToPlay = false;
 	private bool _isPlaying = false;
@@ -28,6 +31,8 @@ public class VoiceTextWrapper : MonoBehaviour
 			print("TTS Load SUCCESS");
 			_isLoaded = true;
 			_hasSomethingToPlay = true;
+
+			LoadText();
 		}
 	}
 
@@ -38,7 +43,7 @@ public class VoiceTextWrapper : MonoBehaviour
 
 		if (_hasSomethingToPlay)
 		{
-			byte[] testByteArray = StringToByteArray(textFile.text);
+			byte[] testByteArray = StringToByteArray(_textToRead);
 			byte[] testFileName = StringToByteArray(Constants.WaveFileName);
 
 			if (TextToWaveFile_ENG(testByteArray, testFileName) != 1)
@@ -48,7 +53,7 @@ public class VoiceTextWrapper : MonoBehaviour
 			else
 			{
 				print("TTS File Out SUCCESS!");
-                audioLoader = new WWW(Constants.WaveFilePath + Constants.WaveFileName);
+				audioLoader = new WWW(Constants.WaveFilePath + Constants.WaveFileName);
 				_hasSomethingToPlay = false;
 			}
 		}
@@ -60,6 +65,18 @@ public class VoiceTextWrapper : MonoBehaviour
 			_audio.clip = audioLoader.GetAudioClip();
 			_audio.Play();
 			_isPlaying = true;
+		}
+	}
+
+	private void LoadText()
+	{
+		if (IsFromTextFile)
+		{
+			_textToRead = TextFile.text;
+		}
+		else
+		{
+			_textToRead = InputText.text;
 		}
 	}
 
