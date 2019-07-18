@@ -23,10 +23,15 @@ public class FaceMesh : MonoBehaviour
 
 	public void SetMeshFromFaceObj(SHxFaceObj obj)
 	{
-		// Get Vertices
-		UpdateVertex(obj);
 		unsafe
 		{
+			// Get Vertices
+			_vertexList = new Vector3[obj.m_numVtx];
+			for (int i = 0; i < obj.m_numVtx; i++)
+			{
+				_vertexList[i] = new Vector3(obj.m_pAniVtxList[i].x, obj.m_pAniVtxList[i].y, obj.m_pAniVtxList[i].z);
+			}
+
 			// Get Facet
 			_faceList = new int[obj.m_numVtxFace * 3];
 			for (int i = 0; i < obj.m_numVtxFace; i++)
@@ -62,25 +67,9 @@ public class FaceMesh : MonoBehaviour
 		GetComponent<Renderer>().material = material;
 	}
 
-	void Update()
+	public void UpdateVertex()
 	{
-		// LoadMesh should be called after start() finished.
-		if (_isFirst)
-		{
-			LoadMesh();
-			_isFirst = false;
-		}
-		else
-		{
-			UpdateVertex(DllWrapper.GetFaceObj());
-			_mesh.vertices = _vertexList;
-			_mesh.triangles = _faceList;
-			_mesh.RecalculateNormals();
-		}
-	}
-
-	private void UpdateVertex(SHxFaceObj obj)
-	{
+		var obj = DllWrapper.GetFaceObj();
 		unsafe
 		{
 			// Get Vertices
@@ -90,5 +79,8 @@ public class FaceMesh : MonoBehaviour
 				_vertexList[i] = new Vector3(obj.m_pAniVtxList[i].x, obj.m_pAniVtxList[i].y, obj.m_pAniVtxList[i].z);
 			}
 		}
+
+		_mesh.vertices = _vertexList;
+		_mesh.RecalculateNormals();
 	}
 }

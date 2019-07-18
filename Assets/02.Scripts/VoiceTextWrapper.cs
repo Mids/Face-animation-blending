@@ -12,6 +12,7 @@ public class VoiceTextWrapper : MonoBehaviour
 	public TextAsset TextFile;
 	public InputField InputText;
 	public bool IsFromTextFile = false;
+	public bool ReadyToPlay = false;
 	private string _textToRead;
 	private bool _isLoaded = false;
 	private bool _hasSomethingToPlay = false;
@@ -20,7 +21,7 @@ public class VoiceTextWrapper : MonoBehaviour
 	private AudioSource _audio;
 	WWW audioLoader;
 
-	void Start()
+	public void LoadVoice()
 	{
 		if (LOADTTS_ENG() != 10)
 		{
@@ -59,15 +60,22 @@ public class VoiceTextWrapper : MonoBehaviour
 		}
 
 		// Start to play audio if it is not playing
-		if (!_isPlaying && audioLoader.isDone)
+		if (audioLoader.isDone)
 		{
-			_audio = GetComponent<AudioSource>();
-			_audio.clip = audioLoader.GetAudioClip();
-			_audio.Play();
-			_isPlaying = true;
+			ReadyToPlay = true;
 		}
 
 		//TODO: Check if playing is ended
+	}
+
+	public void PlayVoice()
+	{
+		if (_isPlaying) return;
+
+		_audio = GetComponent<AudioSource>();
+		_audio.clip = audioLoader.GetAudioClip();
+		_audio.Play();
+		_isPlaying = true;
 	}
 
 	private void LoadText()
