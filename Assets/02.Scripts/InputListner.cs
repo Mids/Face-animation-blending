@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class InputListner : MonoBehaviour
 {
 	private InputField _input;
+	public bool IsEditEnded = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -16,10 +17,7 @@ public class InputListner : MonoBehaviour
 
 	private void InputFieldListener(string input)
 	{
-//		if (Add1(1) == 2)
-//		{
-//			_input.text = "DLL INJECTED!";
-//		}
+		IsEditEnded = true;
 	}
 
 	public string GetText()

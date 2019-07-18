@@ -391,12 +391,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Hi, there! I am a virtual character created by example based approach.
-    To sythesize a realistic facial  animation, a number of visual example models
-    are used in this approach. As you are seen in this demo,  14 different phoneme
-    models are used and linked with a TTS system to generate the real time lipsyncing  animation.
-    In near future, facial expressions as well as more detailed expressions will be
-    added to create  a more realistic animation. Thank you. '
+  m_Text: 'Hi, there!I am a virtual character created by example based approach.To
+    sythesize a realistic facial animation, a number of visual example models are
+    used in this approach.As you are seen in this demo, 14 different phoneme models
+    are used and linked with a TTS system to generate the real time lipsyncing animation.In
+    near future, facial expressions as well as more detailed expressions will be added
+    to create a more realistic animation.Thank you. '
 --- !u!222 &421578928
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 631703305}
   m_Layer: 5
   m_Name: InputField
-  m_TagString: Untagged
+  m_TagString: InputField
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -647,12 +647,12 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 'Hi, there! I am a virtual character created by example based approach.
-    To sythesize a realistic facial  animation, a number of visual example models
-    are used in this approach. As you are seen in this demo,  14 different phoneme
-    models are used and linked with a TTS system to generate the real time lipsyncing  animation.
-    In near future, facial expressions as well as more detailed expressions will be
-    added to create  a more realistic animation. Thank you. '
+  m_Text: 'Hi, there!I am a virtual character created by example based approach.To
+    sythesize a realistic facial animation, a number of visual example models are
+    used in this approach.As you are seen in this demo, 14 different phoneme models
+    are used and linked with a TTS system to generate the real time lipsyncing animation.In
+    near future, facial expressions as well as more detailed expressions will be added
+    to create a more realistic animation.Thank you. '
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -700,6 +700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f770f91697cb2943affe2e3a1ceabb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsEditEnded: 0
 --- !u!1 &819230090
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,6 +1109,7 @@ GameObject:
   - component: {fileID: 1552873912}
   - component: {fileID: 1552873913}
   - component: {fileID: 1552873914}
+  - component: {fileID: 1552873915}
   m_Layer: 0
   m_Name: DLLTestFace
   m_TagString: Untagged
@@ -1168,9 +1170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed1f287288087343a61667dfef8089d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextFile: {fileID: 4900000, guid: 379be874ddccd7040a474c09aad1bd78, type: 3}
-  InputText: {fileID: 631703302}
-  IsFromTextFile: 0
+  ReadyToPlay: 0
 --- !u!82 &1552873914
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1251,6 +1251,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1552873915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1552873909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fe3252c00225e47a095e16f477d835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1807041555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,9 +1304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed1f287288087343a61667dfef8089d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextFile: {fileID: 0}
-  InputText: {fileID: 0}
-  IsFromTextFile: 0
+  ReadyToPlay: 0
 --- !u!82 &1807041558
 AudioSource:
   m_ObjectHideFlags: 0

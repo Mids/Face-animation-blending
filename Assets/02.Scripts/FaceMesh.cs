@@ -45,7 +45,9 @@ public class FaceMesh : MonoBehaviour
 
 	public void LoadMesh()
 	{
-		SetMeshFromFaceObj(DllWrapper.GetFaceObj());
+		DllWrapper.LoadFace();
+		DllWrapper.UpdateFace();
+        SetMeshFromFaceObj(DllWrapper.GetFaceObj());
 		_mesh = new Mesh();
 		transform.GetComponent<MeshFilter>();
 
@@ -69,6 +71,7 @@ public class FaceMesh : MonoBehaviour
 
 	public void UpdateVertex()
 	{
+		DllWrapper.UpdateFace();
 		var obj = DllWrapper.GetFaceObj();
 		unsafe
 		{

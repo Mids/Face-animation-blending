@@ -6,7 +6,7 @@ using UnityEngine;
 public class testdllWrapper : MonoBehaviour
 {
 	// Use this for initialization
-	void Start()
+	public void LoadFace()
 	{
 		LoadFaceAni();
 	}
@@ -16,7 +16,7 @@ public class testdllWrapper : MonoBehaviour
 		return GetFace();
 	}
 
-	public void Update()
+	public void UpdateFace()
 	{
 		UpdateLipSync();
 	}
