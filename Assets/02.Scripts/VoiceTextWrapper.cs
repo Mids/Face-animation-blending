@@ -66,6 +66,8 @@ public class VoiceTextWrapper : MonoBehaviour
 			_audio.Play();
 			_isPlaying = true;
 		}
+
+		//TODO: Check if playing is ended
 	}
 
 	private void LoadText()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plane_Mesh_Script : MonoBehaviour
+public class FaceMesh : MonoBehaviour
 {
 	// Put wrapper in the inspector
 	public testdllWrapper DllWrapper;

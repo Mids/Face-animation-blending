@@ -27,7 +27,6 @@ public class Ball : MonoBehaviour
 		// If it's out of hexagon
 		var x = transform.localPosition.x;
 		var y = transform.localPosition.y;
-		var distance = Mathf.Sqrt(x * x + y * y);
 		if (y > ShortRadius || y < -ShortRadius ||
 		    y > -Slope * x + Slope ||
 		    y < +Slope * x - Slope ||
