@@ -47,7 +47,7 @@ public class FaceMesh : MonoBehaviour
 	{
 		DllWrapper.LoadFace();
 		DllWrapper.UpdateFace();
-        SetMeshFromFaceObj(DllWrapper.GetFaceObj());
+		SetMeshFromFaceObj(DllWrapper.GetFaceObj());
 		_mesh = new Mesh();
 		transform.GetComponent<MeshFilter>();
 
@@ -67,6 +67,13 @@ public class FaceMesh : MonoBehaviour
 
 		_mesh.RecalculateNormals();
 		GetComponent<Renderer>().material = material;
+	}
+
+	public string StartMesh(string script)
+	{
+		script = DllWrapper.ParseEmotionScript(script);
+		DllWrapper.StartFace();
+		return script;
 	}
 
 	public void UpdateVertex()

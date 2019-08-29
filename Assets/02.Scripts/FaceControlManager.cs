@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 /**
@@ -15,13 +16,17 @@ public class FaceControlManager : MonoBehaviour
 	private InputListner _inputListner;
 
 	private bool _isPlaying = false;
+	private string _text;
 
 	// Use this for initialization
 	void Start()
 	{
+		RegisterDebugCallback(new DebugCallback(DebugMethod));
+
 		_voiceTextWrapper = GetComponent<VoiceTextWrapper>();
 		_faceMesh = GetComponent<FaceMesh>();
 		_inputListner = GameObject.FindGameObjectWithTag("InputField").GetComponent<InputListner>();
+		_faceMesh.LoadMesh();
 	}
 
 	// Update is called once per frame
@@ -29,13 +34,14 @@ public class FaceControlManager : MonoBehaviour
 	{
 		if (_inputListner.IsEditEnded)
 		{
-			_voiceTextWrapper.LoadVoice(_inputListner.GetText());
+			_text = _inputListner.GetText();
 			_inputListner.IsEditEnded = false;
+			_text = _faceMesh.StartMesh(_text);
+			_voiceTextWrapper.LoadVoice(_text);
 		}
 
 		if (_voiceTextWrapper.ReadyToPlay && !_isPlaying)
 		{
-			_faceMesh.LoadMesh();
 			_voiceTextWrapper.PlayVoice();
 			_isPlaying = true;
 		}
@@ -44,5 +50,17 @@ public class FaceControlManager : MonoBehaviour
 		{
 			_faceMesh.UpdateVertex();
 		}
+	}
+
+
+	private delegate void DebugCallback(string message);
+
+	[DllImport("testdll")]
+	private static extern void RegisterDebugCallback(DebugCallback callback);
+
+
+	private static void DebugMethod(string message)
+	{
+		Debug.Log("testdll: " + message);
 	}
 }

@@ -391,7 +391,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Hi, there!I am a virtual character created by example based approach.To
+  m_Text: 'Hi, there! <SL> I am a virtual character created by example based approach.To
     sythesize a realistic facial animation, a number of visual example models are
     used in this approach.As you are seen in this demo, 14 different phoneme models
     are used and linked with a TTS system to generate the real time lipsyncing animation.In
@@ -647,7 +647,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 'Hi, there!I am a virtual character created by example based approach.To
+  m_Text: 'Hi, there! <SL> I am a virtual character created by example based approach.To
     sythesize a realistic facial animation, a number of visual example models are
     used in this approach.As you are seen in this demo, 14 different phoneme models
     are used and linked with a TTS system to generate the real time lipsyncing animation.In
