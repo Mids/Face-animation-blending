@@ -72,11 +72,16 @@ public class FaceMesh : MonoBehaviour
 	public string StartMesh(string script)
 	{
 		script = DllWrapper.ParseEmotionScript(script);
-		DllWrapper.StartFace();
+		//		DllWrapper.StartFace();
 		return script;
 	}
 
-	public void UpdateVertex()
+	public void SetEmotion()
+	{
+		DllWrapper.SetEmotion();
+	}
+
+    public void UpdateVertex()
 	{
 		DllWrapper.UpdateFace();
 		var obj = DllWrapper.GetFaceObj();

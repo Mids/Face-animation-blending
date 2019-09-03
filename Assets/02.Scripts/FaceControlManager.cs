@@ -44,6 +44,7 @@ public class FaceControlManager : MonoBehaviour
 		{
 			_voiceTextWrapper.PlayVoice();
 			_isPlaying = true;
+			_faceMesh.SetEmotion();
 		}
 
 		if (_isPlaying)

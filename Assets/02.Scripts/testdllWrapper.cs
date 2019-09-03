@@ -34,7 +34,12 @@ public class testdllWrapper : MonoBehaviour
 		StartFaceAni();
 	}
 
-	public void UpdateFace()
+	public void SetEmotion()
+	{
+		SetEmotionalWord();
+	}
+
+    public void UpdateFace()
 	{
 		UpdateLipSync();
 	}
@@ -49,6 +54,9 @@ public class testdllWrapper : MonoBehaviour
 	private static extern int StartFaceAni();
 
 	[DllImport("testdll")]
+	private static extern int SetEmotionalWord();
+
+    [DllImport("testdll")]
 	private static extern int UpdateLipSync();
 
 	[DllImport("testdll", CallingConvention = CallingConvention.Cdecl)]
