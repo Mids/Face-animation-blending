@@ -36,7 +36,7 @@ public class FaceControlManager : MonoBehaviour
 		{
 			_text = _inputListner.GetText();
 			_inputListner.IsEditEnded = false;
-			_text = _faceMesh.StartMesh(_text);
+			_text = _faceMesh.ParseEmotionScript(_text);
 			_voiceTextWrapper.LoadVoice(_text);
 		}
 
@@ -44,6 +44,7 @@ public class FaceControlManager : MonoBehaviour
 		{
 			_voiceTextWrapper.PlayVoice();
 			_isPlaying = true;
+			_faceMesh.StartMesh();
 			_faceMesh.SetEmotion();
 		}
 

@@ -69,12 +69,16 @@ public class FaceMesh : MonoBehaviour
 		GetComponent<Renderer>().material = material;
 	}
 
-	public string StartMesh(string script)
+	public string ParseEmotionScript(string script)
 	{
 		script = DllWrapper.ParseEmotionScript(script);
-		//		DllWrapper.StartFace();
 		return script;
 	}
+
+	public void StartMesh()
+	{
+		DllWrapper.StartFace();
+    }
 
 	public void SetEmotion()
 	{
